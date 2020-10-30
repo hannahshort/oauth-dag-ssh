@@ -1,0 +1,34 @@
+version: "3.5"
+services:
+  keycloak-dag:
+    image: apozohue10/keycloak-dag
+    container_name: keycloak-dag
+    hostname: keycloak-dag
+    networks:
+      default:
+        ipv4_address: 172.18.1.5
+    ports:
+      - "8080:8080"
+    environment:
+      - KEYCLOAK_IMPORT=/etc/realm.json
+      - KEYCLOAK_USER=admin 
+      - KEYCLOAK_PASSWORD=admin
+    volumes:
+      - "./data/test-realm.json:/etc/realm.json"
+
+
+  ssh-server:
+    image: apozohue10/ssh-server
+    hostname: ssh-server
+    container_name: ssh-server
+    privileged: true
+    networks:
+      default:
+        ipv4_address: 172.18.1.6
+
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.18.1.0/24

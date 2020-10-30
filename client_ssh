@@ -1,0 +1,9 @@
+#!/bin/bash
+
+nohup ssh root@172.18.1.6 > test.out
+
+RESPONSE=$(cat test.out)
+DATA_TOKEN=$(echo "$RESPONSE" | grep -oP 'bearer_token[^[:blank:]]*')
+
+ACCESS_TOKEN=${DATA_TOKEN##*:}
+echo "$ACCESS_TOKEN"
