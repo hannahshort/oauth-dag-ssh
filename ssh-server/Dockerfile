@@ -15,7 +15,7 @@ RUN sed -ri 's/#ClientAliveInterval 0/ClientAliveInterval 1/g' /etc/ssh/sshd_con
 RUN sed -ri 's/#ClientAliveCountMax 3/ClientAliveCountMax 0/g' /etc/ssh/sshd_config
 RUN sed -ri 's/#PrintLastLog yes/PrintLastLog no/g' /etc/ssh/sshd_config
 
-COPY pam_oauth2_device_python pam_oauth2_device-master
+COPY pam_oauth2_device pam_oauth2_device-master
 
 WORKDIR /pam_oauth2_device-master
 
