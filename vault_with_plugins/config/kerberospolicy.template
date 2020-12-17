@@ -1,0 +1,3 @@
+path "<vpath>/creds/{{identity.entity.aliases.<kerberos>.name}}@<domain>:*" {
+    capabilities = [ "list", "read" ]
+}

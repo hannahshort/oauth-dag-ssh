@@ -1,0 +1,22 @@
+{
+   "backend":{
+      "file":{
+         "path":"/var/lib/vault"
+      }
+   },
+   "plugin_directory":"/etc/vault/config/plugins",
+   "disable_mlock":true,
+   "ui":true,
+   "listener":{
+      "tcp":{
+         "address":"0.0.0.0:8200",
+         "tls_disable":1,
+         "tls_cert_file":"/etc/vault/config/hostcert.pem",
+         "tls_key_file":"/etc/vault/config/hostkey.pem",
+         "tls_cipher_suites":"TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+      }
+   },
+   "api_addr":"http://0.0.0.0:8200",
+   "default_lease_ttl":"168h",
+   "max_lease_ttl":"1000000s"
+}
