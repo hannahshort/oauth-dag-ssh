@@ -12,12 +12,16 @@ services:
     cap_add:
       - IPC_LOCK
     environment:
-      - VAULT_OIDC_CLIENT_ID=6099f481-2b5e-4010-aa39-e0f184323ad1
-      - VAULT_OIDC_CLIENT_SECRET=AKO2FdAi0ioaNJyF0xhGi9qRFU7Th8kAcUEVX6y3bjtc9fHUSQQ2yerpHnTdwZE35VxS99OGNpGnZWXbAtvIhQw
-      - VAULT_OIDC_SERVER_URL=https://wlcg.cloud.cnaf.infn.it/
-      - VAULT_OIDC_SCOPES=profile,email,offline_access,wlcg,wlcg.groups,storage.read:/,storage.modify:/,storage.create:/
-      - VAULT_REDIRECT_URIS=http://localhost:8200/v1/auth/$VPATH/oidc/callback
-      - VAULT_ADDR=http://127.0.0.1:8200
+      - VAULT_OIDC_CLIENT_ID=test
+      - VAULT_OIDC_CLIENT_SECRET=3d2c3e59-af22-400d-8d09-2099aca7001b
+      - VAULT_OIDC_SERVER_URL=http://172.17.0.1:8080/auth/realms/test
+      - VAULT_REDIRECT_URIS=https://localhost:8200/v1/auth/oidc-wlcg/oidc/callback
+      - VAULT_OIDC_SCOPES=openid,profile,email
+      # - VAULT_OIDC_CLIENT_ID=6099f481-2b5e-4010-aa39-e0f184323ad1
+      # - VAULT_OIDC_CLIENT_SECRET=AKO2FdAi0ioaNJyF0xhGi9qRFU7Th8kAcUEVX6y3bjtc9fHUSQQ2yerpHnTdwZE35VxS99OGNpGnZWXbAtvIhQw
+      # - VAULT_OIDC_SERVER_URL=https://wlcg.cloud.cnaf.infn.it/
+      # - VAULT_REDIRECT_URIS=http://localhost:8200/v1/auth/$VPATH/oidc/callback
+      # - VAULT_OIDC_SCOPES=profile,email,offline_access,wlcg,wlcg.groups,storage.read:/,storage.modify:/,storage.create:/
     command: vault server -log-level=debug -config=/vault/config/vault.json
 
 networks:

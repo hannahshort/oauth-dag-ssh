@@ -13,6 +13,7 @@ services:
       - KEYCLOAK_IMPORT=/etc/realm.json
       - KEYCLOAK_USER=admin 
       - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_LOGLEVEL=DEBUG
     volumes:
       - "./data/test-realm.json:/etc/realm.json"
 

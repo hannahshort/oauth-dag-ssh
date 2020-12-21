@@ -53,13 +53,13 @@
             "directAccessGrantsEnabled": true,
             "serviceAccountsEnabled": false,
             "oauth2DeviceAuthorizationGrantEnabled": true,
-            "publicClient": false,
+            "publicClient": true,
             "frontchannelLogout": false,
             "protocol": "openid-connect",
             "secret": "3d2c3e59-af22-400d-8d09-2099aca7001b",
             "baseUrl": "/test",
             "redirectUris": [
-                "http://localhost/*"
+                "http://localhost:8200/v1/auth/oidc-wlcg/oidc/callback"
             ],
             "webOrigins": []
         }
