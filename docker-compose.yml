@@ -13,8 +13,9 @@ services:
       - KEYCLOAK_IMPORT=/etc/realm.json
       - KEYCLOAK_USER=admin 
       - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_LOGLEVEL=DEBUG
     volumes:
-      - "./data/test-realm.json:/etc/realm.json"
+      - "./keycloak-dag/data/test-realm.json:/etc/realm.json"
 
 
   ssh-server:
@@ -25,6 +26,26 @@ services:
     networks:
       default:
         ipv4_address: 172.18.1.6
+
+  vault-server:
+    image: apozohue10/vault-server
+    container_name: vault-server
+    hostname: vault-server
+    networks:
+      default:
+        ipv4_address: 172.18.1.7
+    ports:
+      - "8200:8200"
+    cap_add:
+      - IPC_LOCK
+    environment:
+      - KEYCLOAK_ADDR=http://172.18.1.5:8080
+      - VAULT_OIDC_CLIENT_ID=test
+      - VAULT_OIDC_CLIENT_SECRET=3d2c3e59-af22-400d-8d09-2099aca7001b
+      - VAULT_OIDC_SERVER_URL=http://172.18.1.5:8080/auth/realms/test
+      - VAULT_REDIRECT_URIS=https://172.18.1.7:8200/v1/auth/oidc-wlcg/oidc/callback
+      - VAULT_OIDC_SCOPES=openid,profile,email
+    command: vault server -log-level=debug -config=/vault/config/vault.json
 
 
 networks:

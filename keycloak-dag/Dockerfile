@@ -19,12 +19,12 @@ RUN apt-get update && \
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 
-# Copy Keycloak Code
-# RUN mkdir keycloak
-# COPY /keycloak-7.0.0-SNAPSHOT /keycloak/keycloak-7
-
-# Clone Keycloak Code
+# Clone Keycloak Code supportin DAG
 RUN git clone --single-branch --branch oauth2-device-authorization-grant https://github.com/openstandia/keycloak
+
+# Copy files to change discovery url
+COPY OIDCWellKnownProvider.java /keycloak/services/src/main/java/org/keycloak/protocol/oidc/OIDCWellKnownProvider.java
+COPY OIDCConfigurationRepresentation.java /keycloak/services/src/main/java/org/keycloak/protocol/oidc/representations/OIDCConfigurationRepresentation.java
 
 # Create server distribution
 RUN cd keycloak && \

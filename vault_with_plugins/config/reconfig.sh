@@ -62,35 +62,33 @@ OIDC_CLIENT_SECRET="$VAULT_OIDC_CLIENT_SECRET"
 OIDC_SERVER_URL="$VAULT_OIDC_SERVER_URL"
 OIDC_SCOPES="$VAULT_OIDC_SCOPES"
 CALLBACKMODE=device
-GROUPSCLAIM="wlcg.groups"
 TOKEN_ENDPOINT=token
 REDIRECT_URIS="$VAULT_REDIRECT_URIS"
 
 vault auth disable oidc
 # ISSUERS="default wlcg cms cilogon"
-ISSUERS="wlcg"
+ISSUERS="default"
 for ISSUER in $ISSUERS; do 
     VPATH=oidc-$ISSUER
     vault auth disable $VPATH
     vault auth enable -path=$VPATH oidc
     REDIRECT_URIS="http://localhost:8200/v1/auth/$VPATH/oidc/callback"
-    if [ "$ISSUER" = wlcg ]; then
-	CALLBACKMODE=direct
-    elif [ "$ISSUER" = cms ]; then
-	OIDC_CLIENT_ID="xxx"
-	OIDC_CLIENT_SECRET="xxx"
-	OIDC_SERVER_URL="https://cms-auth.web.cern.ch/"
-	CALLBACKMODE=direct
-    elif [ "$ISSUER" = cilogon ]; then
-	OIDC_CLIENT_ID="xxx"
-	OIDC_CLIENT_SECRET="xxx"
-	OIDC_SERVER_URL="https://test.cilogon.org"
-	OIDC_SCOPES="profile,email,org.cilogon.userinfo,storage.read:/,storage.create:/"  # adds openid by default
-	GROUPSCLAIM=""
-	CREDKEY=eppn
-	TOKEN_ENDPOINT=oauth2/token
-	CALLBACKMODE=direct
-    fi
+ #    if [ "$ISSUER" = wlcg ]; then
+	# CALLBACKMODE=direct
+ #    elif [ "$ISSUER" = cms ]; then
+	# OIDC_CLIENT_ID="xxx"
+	# OIDC_CLIENT_SECRET="xxx"
+	# OIDC_SERVER_URL="https://cms-auth.web.cern.ch/"
+	# CALLBACKMODE=direct
+ #    elif [ "$ISSUER" = cilogon ]; then
+	# OIDC_CLIENT_ID="xxx"
+	# OIDC_CLIENT_SECRET="xxx"
+	# OIDC_SERVER_URL="https://test.cilogon.org"
+	# OIDC_SCOPES="profile,email,org.cilogon.userinfo,storage.read:/,storage.create:/"  # adds openid by default
+	# CREDKEY=eppn
+	# TOKEN_ENDPOINT=oauth2/token
+	# CALLBACKMODE=direct
+ #    fi
     VPATH=auth/$VPATH
     vault write $VPATH/config \
 	oidc_client_id="$OIDC_CLIENT_ID" \
@@ -98,11 +96,11 @@ for ISSUER in $ISSUERS; do
 	default_role="default" \
 	oidc_discovery_url="$OIDC_SERVER_URL" 
 
+	# DELETE GROUPCLAIMS for simplicity on testing
     echo -n '{"claim_mappings": {"'$CREDKEY'" : "credkey"}, "oauth2_metadata": ["refresh_token"]}'| \
       vault write $VPATH/role/default - \
 	role_type="oidc" \
 	user_claim="$CREDKEY" \
-	groups_claim="$GROUPSCLAIM" \
 	oidc_scopes="$OIDC_SCOPES" \
 	policies=default,oidcpolicy,tokencreatepolicy \
 	callback_mode=$CALLBACKMODE \
