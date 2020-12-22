@@ -52,7 +52,7 @@ Once you have run the ssh client, you will retrieve in the command line a QR cod
 - Password: user
 Once that you have authenticated and accepted an authorization, you have to return to the command line and press Enter. If everything goes well, the command line will display a Bearer Token.
 
-ScreenCast
+Yo can wath a screencast of how it works in this [link](https://www.youtube.com/watch?v=L4VOMKXYytU) on youtube.
 
 ## Code structure
 The code is structured as follows:
