@@ -10,11 +10,11 @@ The overall architecture consists of the following elements:
     - [JWT Auth Backend](https://github.com/hashicorp/vault-plugin-auth-jwt). It allows OIDC to authenticate with Vault.
     - [Secrets OAuth App](https://github.com/puppetlabs/vault-plugin-secrets-oauthapp). It provides a secure wrapper around OAuth 2 authorization code grant flows
 
-![](https://raw.githubusercontent.com/apozohue10/oauth-dag-ssh/master/doc/architecture.png)
+![Architecture](https://raw.githubusercontent.com/apozohue10/oauth-dag-ssh/master/doc/architecture.png)
 
 ### Flow
 
-![](https://raw.githubusercontent.com/apozohue10/oauth-dag-ssh/master/doc/flow.png)
+![Flow](https://raw.githubusercontent.com/apozohue10/oauth-dag-ssh/master/doc/flow.png)
 
 ## Prerequisites
 ### Docker
