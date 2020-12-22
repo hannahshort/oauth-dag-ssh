@@ -19,7 +19,7 @@ RUN apt-get update && \
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 
-# Clone Keycloak Code
+# Clone Keycloak Code supportin DAG
 RUN git clone --single-branch --branch oauth2-device-authorization-grant https://github.com/openstandia/keycloak
 
 # Copy files to change discovery url

@@ -6,4 +6,5 @@ RESPONSE=$(cat test.out)
 DATA_TOKEN=$(echo "$RESPONSE" | grep -oP 'bearer_token[^[:blank:]]*')
 
 ACCESS_TOKEN=${DATA_TOKEN##*:}
+echo "The Bearer Token is: "
 echo "$ACCESS_TOKEN"

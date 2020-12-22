@@ -12,6 +12,18 @@ while true; do
   sleep 5
 done
 
+while true; do
+  echo "Checking the Keycloak is up and running..."
+  CODE=$(wget --spider -S ${KEYCLOAK_ADDR} 2>&1 | grep "HTTP/" | awk '{print $2}')
+  if [ ${CODE} = 200 ]; then
+  	echo "Keycloak up!"
+    break
+  else
+    echo "Keycloak unavailable. Retrying in 5s..."
+  fi
+  sleep 5
+done
+
 # Init vault servers
 vault operator init -key-shares=1 -key-threshold=1 -format=json >keys.json
 

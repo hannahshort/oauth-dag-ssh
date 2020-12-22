@@ -1,7 +1,7 @@
 # PAM configuration for the Secure Shell service
 
 # Standard Un*x authentication.
-auth required pam_python.so /lib/security/pam_oauth2_device.py /lib/security/config.yml
+auth required pam_python.so /lib/security/pam_get_oauth2_token.py /lib/security/config.yml
 # @include common-auth
 
 # Disallow non-root logins when /etc/nologin exists.
